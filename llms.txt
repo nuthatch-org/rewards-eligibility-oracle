@@ -1,0 +1,30 @@
+# nuthatch nest on arbitrum-one
+
+A self-hosted blockchain index. Query it locally; there is no third-party API.
+
+## Contracts
+- `reo` = 0x02753bae61c08abd4351bce7f48524935c2cc78e
+
+## Tables (one per contract event)
+- `reo__eligibility_period_updated` - EligibilityPeriodUpdated(uint256,uint256) (block_number, block_hash, block_timestamp, tx_hash, log_index, address, _seq, oldPeriod, newPeriod)
+- `reo__eligibility_validation_updated` - EligibilityValidationUpdated(bool) (block_number, block_hash, block_timestamp, tx_hash, log_index, address, _seq, enabled)
+- `reo__indexer_eligibility_data` - IndexerEligibilityData(address,bytes) (block_number, block_hash, block_timestamp, tx_hash, log_index, address, _seq, oracle, data)
+- `reo__indexer_eligibility_renewed` - IndexerEligibilityRenewed(address,address) (block_number, block_hash, block_timestamp, tx_hash, log_index, address, _seq, indexer, oracle)
+- `reo__indexer_retention_period_set` - IndexerRetentionPeriodSet(uint256,uint256) (block_number, block_hash, block_timestamp, tx_hash, log_index, address, _seq, oldPeriod, newPeriod)
+- `reo__indexer_tracking_updated` - IndexerTrackingUpdated(address,bool) (block_number, block_hash, block_timestamp, tx_hash, log_index, address, _seq, indexer, tracked)
+- `reo__oracle_update_timeout_updated` - OracleUpdateTimeoutUpdated(uint256,uint256) (block_number, block_hash, block_timestamp, tx_hash, log_index, address, _seq, oldTimeout, newTimeout)
+- `reo__paused` - Paused(address) (block_number, block_hash, block_timestamp, tx_hash, log_index, address, _seq, account)
+- `reo__unpaused` - Unpaused(address) (block_number, block_hash, block_timestamp, tx_hash, log_index, address, _seq, account)
+
+## Live HTTP API (run `nuthatch dev`)
+- `GET /`                    index status
+- `GET /tables`              every table with its columns
+- `GET /table/{name}?limit=N` recent rows of one table (hot + sealed)
+- `GET /entity/{id}`         one row by id (`{block:012}-{logindex:06}`)
+- `GET /sql?q=SELECT...`     read-only SQL; each table is a view named `{alias}__{event}`
+- `GET /balances?limit=N`    top holder balances (when an ERC-20 Transfer table is present)
+- `GET /balance/{address}`   one address's derived balance
+
+## MCP (for coding agents)
+Run `nuthatch mcp` (stdio) to expose tools: status, schema, tables, table, sql, entity,
+balance, top_balances. Fully offline against the local instance; nothing phones home.

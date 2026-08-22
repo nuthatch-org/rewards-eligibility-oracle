@@ -1,0 +1,33 @@
+[nest]
+name = "rewards-eligibility-oracle"
+chain = "arbitrum-one"
+chain_id = 42161
+# A keyless public endpoint, so this file is publishable: `nuthatch.toml` is pinned into the nest's
+# content address and must never carry a credential.
+rpc_urls = [
+    "https://arb1.arbitrum.io/rpc",
+]
+schema_version = 1
+block_timestamps = true
+
+# GIP-0088's Rewards Eligibility Oracle, instance A, on Arbitrum One.
+#
+# **Deployed and emitting, but not yet activated.** The contract has been marking indexers eligible
+# since block 492,356,872 - 684 `IndexerEligibilityRenewed` in the last 5,000,000 blocks - but
+# `RewardsManager.rewardsEligibilityOracle()` still reverts, so it is not wired into the rewards
+# flow. Its own source initialises `eligibilityValidationEnabled = false`, "to be enabled later when
+# the oracle is ready". So this nest indexes a real, live record of a mechanism that is not yet
+# enforcing. Index it now and you have the history from the day it starts to count.
+#
+# Address A of an A/B pair (`packages/issuance/addresses.json`, chain 42161). B is deployed at
+# 0xeebc4919a239c1315a7e0652e692812719bad591 with code and **zero** logs, which is what an A/B pair
+# looks like when only A is running.
+#
+# The ABI is vendored from the *implementation* (0x66cebbec...), read off the EIP-1967 slot. Both
+# Sourcify and Blockscout answer for the proxy address with the proxy's own ABI, which has no events
+# worth indexing - resolving the address directly gets you a nest that decodes nothing.
+[[contracts]]
+alias = "reo"
+address = "0x02753bae61c08abd4351bce7f48524935c2cc78e"
+start_block = 486895566
+abi = "abis/reo.json"

@@ -1,0 +1,119 @@
+# semantic.toml - what this nest's data *means* (RFC-0016). Read by the MCP `schema`
+# tool, the admin UI, and the scaffolded skill. Edit descriptions freely; the
+# `[table.*.footguns]` are DERIVED from the ABI and regenerated - leave them be.
+
+schema_version = 1
+
+[nest]
+description = "The `rewards-eligibility-oracle` nest on arbitrum-one. (seeded from the ABI - edit semantic.toml to improve this)"
+
+[table.reo__eligibility_period_updated]
+description = "`EligibilityPeriodUpdated(uint256,uint256)` events emitted by the `reo` contract. (seeded from the ABI - edit semantic.toml to improve this)"
+grain = "one row per EligibilityPeriodUpdated(uint256,uint256) event"
+
+[table.reo__eligibility_period_updated.columns]
+newPeriod = "The `newPeriod` uint256 parameter. (seeded from the ABI - edit semantic.toml to improve this)"
+oldPeriod = "The `oldPeriod` uint256 parameter. (seeded from the ABI - edit semantic.toml to improve this)"
+
+[table.reo__eligibility_period_updated.footguns]
+big_ints = [
+    "oldPeriod",
+    "newPeriod",
+]
+overflows_dec = [
+    "oldPeriod",
+    "newPeriod",
+]
+
+[table.reo__eligibility_validation_updated]
+description = "`EligibilityValidationUpdated(bool)` events emitted by the `reo` contract. (seeded from the ABI - edit semantic.toml to improve this)"
+grain = "one row per EligibilityValidationUpdated(bool) event"
+
+[table.reo__eligibility_validation_updated.columns]
+enabled = "The `enabled` bool parameter - stored as exact text `'true'`/`'false'`, not a SQL boolean. `enabled = true` and `AND`/`NOT` implicitly cast and work; `COALESCE`, `CASE`, `bool_and`/`bool_or` and `UNION` do not. Write `enabled = 'true'` or `CAST(enabled AS BOOLEAN)`. (seeded from the ABI - edit semantic.toml to improve this)"
+
+[table.reo__eligibility_validation_updated.footguns]
+bools = ["enabled"]
+
+[table.reo__indexer_eligibility_data]
+description = "`IndexerEligibilityData(address,bytes)` events emitted by the `reo` contract. (seeded from the ABI - edit semantic.toml to improve this)"
+grain = "one row per IndexerEligibilityData(address,bytes) event"
+
+[table.reo__indexer_eligibility_data.columns]
+data = "The `data` bytes parameter. (seeded from the ABI - edit semantic.toml to improve this)"
+oracle = "The `oracle` address parameter. (seeded from the ABI - edit semantic.toml to improve this)"
+
+[table.reo__indexer_eligibility_renewed]
+description = "`IndexerEligibilityRenewed(address,address)` events emitted by the `reo` contract. (seeded from the ABI - edit semantic.toml to improve this)"
+grain = "one row per IndexerEligibilityRenewed(address,address) event"
+
+[table.reo__indexer_eligibility_renewed.columns]
+indexer = "The `indexer` address parameter. (seeded from the ABI - edit semantic.toml to improve this)"
+oracle = "The `oracle` address parameter. (seeded from the ABI - edit semantic.toml to improve this)"
+
+[table.reo__indexer_retention_period_set]
+description = "`IndexerRetentionPeriodSet(uint256,uint256)` events emitted by the `reo` contract. (seeded from the ABI - edit semantic.toml to improve this)"
+grain = "one row per IndexerRetentionPeriodSet(uint256,uint256) event"
+
+[table.reo__indexer_retention_period_set.columns]
+newPeriod = "The `newPeriod` uint256 parameter. (seeded from the ABI - edit semantic.toml to improve this)"
+oldPeriod = "The `oldPeriod` uint256 parameter. (seeded from the ABI - edit semantic.toml to improve this)"
+
+[table.reo__indexer_retention_period_set.footguns]
+big_ints = [
+    "oldPeriod",
+    "newPeriod",
+]
+overflows_dec = [
+    "oldPeriod",
+    "newPeriod",
+]
+
+[table.reo__indexer_tracking_updated]
+description = "`IndexerTrackingUpdated(address,bool)` events emitted by the `reo` contract. (seeded from the ABI - edit semantic.toml to improve this)"
+grain = "one row per IndexerTrackingUpdated(address,bool) event"
+
+[table.reo__indexer_tracking_updated.columns]
+indexer = "The `indexer` address parameter. (seeded from the ABI - edit semantic.toml to improve this)"
+tracked = "The `tracked` bool parameter - stored as exact text `'true'`/`'false'`, not a SQL boolean. `tracked = true` and `AND`/`NOT` implicitly cast and work; `COALESCE`, `CASE`, `bool_and`/`bool_or` and `UNION` do not. Write `tracked = 'true'` or `CAST(tracked AS BOOLEAN)`. (seeded from the ABI - edit semantic.toml to improve this)"
+
+[table.reo__indexer_tracking_updated.footguns]
+bools = ["tracked"]
+
+[table.reo__oracle_update_timeout_updated]
+description = "`OracleUpdateTimeoutUpdated(uint256,uint256)` events emitted by the `reo` contract. (seeded from the ABI - edit semantic.toml to improve this)"
+grain = "one row per OracleUpdateTimeoutUpdated(uint256,uint256) event"
+
+[table.reo__oracle_update_timeout_updated.columns]
+newTimeout = "The `newTimeout` uint256 parameter. (seeded from the ABI - edit semantic.toml to improve this)"
+oldTimeout = "The `oldTimeout` uint256 parameter. (seeded from the ABI - edit semantic.toml to improve this)"
+
+[table.reo__oracle_update_timeout_updated.footguns]
+big_ints = [
+    "oldTimeout",
+    "newTimeout",
+]
+overflows_dec = [
+    "oldTimeout",
+    "newTimeout",
+]
+
+[table.reo__paused]
+description = "`Paused(address)` events emitted by the `reo` contract. (seeded from the ABI - edit semantic.toml to improve this)"
+grain = "one row per Paused(address) event"
+
+[table.reo__paused.columns]
+account = "The `account` address parameter. (seeded from the ABI - edit semantic.toml to improve this)"
+
+[table.reo__unpaused]
+description = "`Unpaused(address)` events emitted by the `reo` contract. (seeded from the ABI - edit semantic.toml to improve this)"
+grain = "one row per Unpaused(address) event"
+
+[table.reo__unpaused.columns]
+account = "The `account` address parameter. (seeded from the ABI - edit semantic.toml to improve this)"
+
+[view]
+
+# Authored views (views/*.sql) are described here so the MCP/`/schema` can render them:
+# [view.your_view_name]
+# description = "What this derivation computes."
