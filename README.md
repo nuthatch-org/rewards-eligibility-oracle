@@ -1,6 +1,6 @@
 # rewards-eligibility-oracle
 
-A [nuthatch](https://github.com/nightswatchhq/nuthatch) nest: **GIP-0088's Rewards Eligibility Oracle on Arbitrum One**.
+A [nuthatch](https://github.com/nuthatch-org/nuthatch) nest: **GIP-0088's Rewards Eligibility Oracle on Arbitrum One**.
 
 Authorised oracles mark indexers as eligible to receive indexing rewards. This is the whole record of that, from the contract's first block.
 
@@ -46,7 +46,7 @@ It is not the whole of the `qos-reo` catalogue entry. That asks for two things, 
 ## Run it
 
 ```sh
-nuthatch init --from https://github.com/nightswatchhq/rewards-eligibility-oracle
+nuthatch init --from https://github.com/nuthatch-org/rewards-eligibility-oracle
 cd rewards-eligibility-oracle
 nuthatch dev --dir . --backfill 11000000 --seal-direct --window 20000
 nuthatch sql --dir . "SELECT count(*) FROM \"reo__indexer_eligibility_renewed\""
