@@ -1,1 +1,1 @@
-Authored views go here. See https://github.com/nightswatchhq/nuthatch for the shape.
+Authored views go here. See https://github.com/nuthatch-org/nuthatch for the shape.
